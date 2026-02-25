@@ -35,6 +35,53 @@ def PLA(X, y):
         
     return it, w
 
+def pocket_PLA(X, y, max_iter=1000):
+    """
+    Pocket Perceptron Learning Algorithm
+    ------------------------------------------------
+    Paramêtros:
+    - X: matriz de treino (cada linha = ponto, primeira coluna = bias)
+    - y: vetor de rótulos (+1 ou -1)
+    - max_iter: número máximo de iterações
+    
+    Retorno:
+    - best_w: melhor vetor de pesos encontrado
+    - best_errors: quantidade de pontos mal classificados do melhor w
+    """
+    X = np.array(X)
+    y = np.array(y)
+    w = np.zeros(X.shape[1])          # vetor de pesos atual
+    best_w = w.copy()                 # melhor vetor de pesos encontrado
+    best_errors = len(y)              # melhor quantidade de erros até agora
+    
+    for it in range(max_iter):
+        # percorre todos os pontos aleatoriamente
+        indices = list(range(len(y)))
+        random.shuffle(indices)
+        
+        for i in indices:
+            h = 1 if np.dot(w, X[i]) >= 0 else -1
+            if h != y[i]:
+                w = w + y[i]*X[i]   # atualiza pesos
+
+                #plot_grafico(X, y, w)
+                
+                # calcula erros do w atualizado
+                y_pred = np.sign(X @ w)
+                errors = np.sum(y_pred != y)
+                
+                # guarda se for melhor
+                if errors < best_errors:
+                    best_errors = errors
+                    best_w = w.copy()
+                break  # muda para o próximo iteração
+                
+        # se zerar os erros, pode parar
+        if best_errors == 0:
+            break
+    
+    return best_w, best_errors
+
 def constroiListaPCI(X, y, w):
     """
     Esta função constrói a lista de pontos classificados incorretamente.
