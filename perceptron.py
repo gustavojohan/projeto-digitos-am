@@ -29,7 +29,7 @@ def PLA(X, y):
         w = w + new_y[i] * listaPCI[i]
         it += 1
         # Após atualizar os pesos para correção do ponto escolhido, você irá chamar a função plotGrafico()
-        plot_grafico(X, y, w)
+        #plot_grafico(X, y, w)
         # Aqui você deverá construir a lista de pontos classificados incorretamente
         listaPCI, new_y = constroiListaPCI(X, y, w)
         
