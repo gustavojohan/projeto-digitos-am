@@ -26,7 +26,7 @@ def PLA(X, y):
         # Pega um indice aleatorio
         i = random.choice(range(len(listaPCI)))
 
-        w = w + new_y[i] * listaPCI[i]
+        w = w + new_y[i] * np.array(listaPCI[i])
         it += 1
         # Após atualizar os pesos para correção do ponto escolhido, você irá chamar a função plotGrafico()
         #plot_grafico(X, y, w)

@@ -18,10 +18,10 @@ class LogisticRegression_:
         self.w = np.zeros(d)
 
         for t in range(self.tmax):
-            wx = X.dot(self.w)
-            ywx = y * wx
-            v = y / (1 + np.exp(ywx))
-            gt = -(1/N) * X.T.dot(v)
+            wx = X.dot(self.w)          # w^T x_i para todos os pontos
+            ywx = y * wx                # y_i * w^T x_i
+            v = y / (1 + np.exp(ywx))   # y_i / (1 + e^{y_i w^T x_i})
+            gt = -(1/N) * X.T.dot(v)    # gradiente
 
             self.w = self.w - self.eta * gt
     
